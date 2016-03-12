@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+                 xmlns:beans="http://www.springframework.org/schema/beans"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    			 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/employeee" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/index" access="hasRole('ROLE_HR')"/>
+        <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
+        
+        <form-login login-page="/login" authentication-success-handler-ref="customSuccessHandler" authentication-failure-url="/login?error"
+                    username-parameter="username" password-parameter="password"/>
+        <logout logout-success-url="/login?logout"/>
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsServiceImpl">
+            <password-encoder ref="encoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsServiceImpl" class="com.semicolon.centaurs.service.UserDetailsServiceImpl"></beans:bean>
+
+    <beans:bean id="customSuccessHandler" class="com.semicolon.centaurs.validator.CustomSuccessHandler"></beans:bean>
+
+    <beans:bean id="encoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg name="strength" value="11"/>
+    </beans:bean>
+</beans:beans>
