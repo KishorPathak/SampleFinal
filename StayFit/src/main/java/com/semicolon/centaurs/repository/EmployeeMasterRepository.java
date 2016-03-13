@@ -7,4 +7,5 @@ import com.semicolon.centaurs.model.EmployeeMaster;
 
 public interface EmployeeMasterRepository extends JpaRepository<EmployeeMaster, Long>  {
 	EmployeeMaster findByEmployeeEmail(String empEmail);
+	EmployeeMaster findByEmpId(Long empId);
 }

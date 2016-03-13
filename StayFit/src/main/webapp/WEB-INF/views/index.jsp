@@ -210,7 +210,7 @@
                     <div class="col-sm-12">
                          <div class="box box-primary">
                             <div class="box-header with-border">
-                              <h3 class="box-title">Overall Calories</h3>
+                              <h3 class="box-title">Employee Adherence Stats</h3>
                             
                                  <div class="form-group">
                                     <label>Please select Date range to filter the data:</label>
@@ -240,7 +240,7 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Zonewise Employees Data</h3>
+                  <h3 class="box-title">Employee Adherence Details</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
             
@@ -254,7 +254,7 @@
                             <thead>
                               <tr role="row">
 
-                                  <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">#</th>
+                                  
                                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Employee Name</th>
                                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Calories</th>
 
@@ -301,9 +301,8 @@
                          <div class="box box-primary">
                         
                             <div class="box-header with-border">
-                              <h3 class="box-title">Zonal Calories Graph</h3>
-                                
-                           
+                              <h3 class="box-title">Org wide aherence trend</h3>
+                                         
                                 
                               <div class="piechart-container chart tab-pane" id="daily-calories-chart">
                                     

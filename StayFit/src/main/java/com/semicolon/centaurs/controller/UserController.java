@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.semicolon.centaurs.model.EmployeeMaster;
 import com.semicolon.centaurs.model.User;
-import com.semicolon.centaurs.service.SecurityService;
 import com.semicolon.centaurs.service.EmployeeMasterService;
+import com.semicolon.centaurs.service.SecurityService;
 import com.semicolon.centaurs.service.UserService;
 import com.semicolon.centaurs.validator.UserValidator;
 import com.semicolon.centaurs.valueobjects.AppUserRegisterRequestVO;
@@ -68,6 +69,15 @@ public class UserController {
             model.addAttribute("message", "You have been logged out successfully.");
 
         return "login";
+    }
+    
+    @RequestMapping(value = "/employeeProfile", method = RequestMethod.GET )
+    public String getEmployeeProfile(Model model) {
+    	EmployeeMaster masterEmployee = (EmployeeMaster) model;
+    	Long empId = masterEmployee.getEmpId();
+    	EmployeeMaster employeeProfile = employeeMasterService.getEmployeeProfileById(empId);
+        model.addAttribute("userProfile", employeeProfile);
+        return "employeeProfile";
     }
     
     @ResponseBody

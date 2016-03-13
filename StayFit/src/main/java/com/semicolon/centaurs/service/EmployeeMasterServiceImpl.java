@@ -45,4 +45,14 @@ public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 		return empId;
 	}
 
+	@Override
+	public EmployeeMaster getEmployeeProfileById(Long empId) {
+		EmployeeMaster employeeMaster = employeeMasterRepository.findByEmpId(empId);
+		if (null != employeeMaster) {
+			return employeeMaster;
+		}
+		return employeeMaster;
+		
+	}
+
 }

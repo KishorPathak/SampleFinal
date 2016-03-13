@@ -35,7 +35,7 @@ function drawUserRecordData(jdata){
         
         for(var i=0; i<jdata.length; i++){
             htmlStr += "<tr>";
-           htmlStr += "<td>"+jdata[i].empId+"</td>";
+           
            htmlStr += "<td>"+jdata[i].employeeName+"</td>";
            htmlStr += "<td>"+jdata[i].calories+"</td>"; 
             htmlStr += +"</tr>";
@@ -83,7 +83,7 @@ function drawDailyGraph(jdata){
     
     $('#daily-calories-chart').highcharts({
         title: {
-            text: 'Zonal Calories Graph',
+            text: '',
             x: -20 //center
         },
         subtitle: {
@@ -105,7 +105,7 @@ function drawDailyGraph(jdata){
             }]
         },
         tooltip: {
-            valueSuffix: ' Frequency of Employees'
+            valueSuffix: ' Number of Employees'
         },
         legend: {
             layout: 'vertical',
@@ -114,13 +114,13 @@ function drawDailyGraph(jdata){
             borderWidth: 0
         },
         series: [{
-            name: 'GREEN',
+            name: 'Adhering',
             data: dataGreen
         }, {
-            name: 'YELLOW',
+            name: 'Improving',
             data: dataYellow
         }, {
-            name: 'RED',
+            name: 'Not Adhering',
             data: dataRed
         }]
     });
@@ -131,7 +131,15 @@ function drawPieChart(jdata){
     var newArrayData = [];
     for(var i=0; i<jdata.length; i++){        
         var yvalue =  parseInt(jdata[i].y);
-        var obj = {"name":jdata[i].name, "y":yvalue};
+		var legend ;
+		if(jdata[i].name === 'GREEN') {
+			legend = 'Adhering';
+		} else if(jdata[i].name === 'YELLOW') {
+			legend = 'Improving';
+		} else {
+			legend = 'Not Adhering';
+		}
+        var obj = {"name":legend, "y":yvalue};
         newArrayData.push(obj);
     }
     
@@ -167,7 +175,15 @@ function drawPieChart(jdata){
 						events: {
                             click: function () {
                                 //alert('Zone: ' + this.options.y + ', value: ' + this.options.name);
-                                populateTable(startDate, endDate, this.options.name);
+								var zone ;
+								if(this.options.name === 'Adhering') {
+									zone = 'GREEN';
+								} else if(this.options.name === 'Not Adhering') {
+									zone = 'RED';
+								} else {
+									zone = 'YELLOW';
+								}
+                                populateTable(startDate, endDate, zone);
                             }
 					    }
                     }
