@@ -182,8 +182,8 @@
                                 <i class="fa fa-calendar"></i> Select Date Range
                                 <i class="fa fa-caret-down"></i>
                               </button>
-							  <span id = "reportrange"></span>
-                            </div>
+							 </div>
+							<span id = "reportrange"></span>
                         </div><!-- /.form group -->          
                     
                    

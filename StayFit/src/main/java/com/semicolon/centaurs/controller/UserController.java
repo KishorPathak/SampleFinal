@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.semicolon.centaurs.model.User;
 import com.semicolon.centaurs.service.SecurityService;
-import com.semicolon.centaurs.service.UserMasterService;
+import com.semicolon.centaurs.service.EmployeeMasterService;
 import com.semicolon.centaurs.service.UserService;
 import com.semicolon.centaurs.validator.UserValidator;
 import com.semicolon.centaurs.valueobjects.AppUserRegisterRequestVO;
@@ -25,6 +25,7 @@ import com.semicolon.centaurs.valueobjects.AppUserResponseVO;
 
 @Controller
 public class UserController {
+	
     @Autowired
     private UserService userService;
 
@@ -35,7 +36,7 @@ public class UserController {
     private UserValidator userValidator;
     
     @Autowired
-    private UserMasterService userMasterService;
+    private EmployeeMasterService employeeMasterService;
     
     private static final String APPLICATION_JSON = "application/json";
     
@@ -54,8 +55,9 @@ public class UserController {
 
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        model.addAttribute("message", "You have successfully registered.");
 
-        return "redirect:/welcome";
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -95,7 +97,7 @@ public class UserController {
     	user.setPasswordConfirm(request.getPasswordConfirm());
     	
     	userService.save(user);
-    	userMasterService.saveEmployeeMaster(request);
+    	employeeMasterService.saveEmployeeMaster(request);
     	if(null!=user){
     		appUserResponseVO.setUsername(user.getUsername());
     		appUserResponseVO.setPassword(user.getPassword());
@@ -116,29 +118,22 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index(Model model) {
-    	Long userId = getCurrentLoggedInUserId();
-    	String userName = getCurrentLoggedInUserName();
-    	model.addAttribute("userName", userName);
-    	model.addAttribute("userId", userId);
+    	String userEmail = getCurrentLoggedInUserName();
+    	Long empId = employeeMasterService.getEmployeeIdByEmail(userEmail);
+    	model.addAttribute("userName", userEmail);
+    	model.addAttribute("userId", empId);
         return "index";
     }
     
     @RequestMapping(value = {"/", "/employee"}, method = RequestMethod.GET)
     public String employee(Model model) {
-    	Long userId = getCurrentLoggedInUserId();
-    	String userName = getCurrentLoggedInUserName();
-    	model.addAttribute("userName", userName);
-    	model.addAttribute("userId", userId);
+    	String userEmail = getCurrentLoggedInUserName();
+    	Long empId = employeeMasterService.getEmployeeIdByEmail(userEmail);
+    	model.addAttribute("userName", userEmail);
+    	model.addAttribute("userId", empId);
         return "employee";
     }
     
-    private Long getCurrentLoggedInUserId() {
-		String userName = getCurrentLoggedInUserName();
-    	User user = userService.findByUsername(userName);
-    	Long userId = user.getId();
-		return userId;
-	}
-
 	private String getCurrentLoggedInUserName() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String userName = authentication.getName();

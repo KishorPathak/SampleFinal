@@ -42,7 +42,7 @@
         <p class="login-box-msg">Sign in to start your session</p>
         <form method="POST" action="${contextPath}/login" class="form-signin">
 		 <div class="form-group ${error != null ? 'has-error' : ''}">
-		  <span>${message}</span>
+		  <label>${message}</label></br>
           <div class="form-group has-feedback">
             <input type="email" name="username" class="form-control" placeholder="Email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -70,7 +70,7 @@
 		   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
 
-        <a href="#">I forgot my password</a><br>
+        
         <a href="${contextPath}/registration" class="text-center">Register a new membership</a>
 
       </div><!-- /.login-box-body -->

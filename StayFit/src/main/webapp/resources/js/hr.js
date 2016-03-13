@@ -190,6 +190,10 @@ $(document).ready(function () {
           radioClass: 'iradio_square-blue',
           increaseArea: '20%' // optional
     });
+	
+	 $('.slimScrollDiv').slimScroll({
+        height: '250px'
+    });
     
     //Date range as a button
     $('#daterange-btn').daterangepicker(

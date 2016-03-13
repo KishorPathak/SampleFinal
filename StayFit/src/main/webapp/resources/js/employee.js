@@ -4,7 +4,7 @@ var fromDate, toDate;
 function populateLineChart(startDate, endDate){
     
     $.ajax({
-        url: 'http://localhost:8080/stayfit/dailyCalories',
+        url: 'http://10.222.120.101:8080/stayfit/dailyCalories',
         method: "GET",
         dataType: "json",
         data: {'from': startDate.format("MM/DD/YYYY"), 'to': endDate.format("MM/DD/YYYY"), 'empId':localStorage.id},
@@ -89,7 +89,13 @@ $(document).ready(function () {
 	  }
 			
     });
+	
 	populateLineChart(moment().subtract(7, 'days'), moment()); 
+	
+	fromDate =  moment().subtract(7, 'days').calendar();
+    toDate = moment().format('MM/DD/YYYY');
+	
+    $('#reportrange').html(fromDate+" - "+toDate);
 	
     
 });       
